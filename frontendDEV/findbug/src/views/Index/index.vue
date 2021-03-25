@@ -10,10 +10,12 @@
         <p>实时日志</p>
         <el-button type="primary">点击查询</el-button>
       </div>
+
       <div class="sec">
         <div class="item">
-          <p>时间段:</p>
+          <p style="min-width:80px;">时间段:</p>
           <el-date-picker
+            v-if="!isSmallScreen"
             v-model="searchForm.date"
             type="datetimerange"
             format="yyyy-MM-dd HH:mm:ss"
@@ -22,7 +24,36 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期">
           </el-date-picker>
+          <div class="box" v-if="isSmallScreen">
+            <el-date-picker v-model="searchForm.startDate" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="开始日期"></el-date-picker>
+            <p style="height:5px;"></p>
+            <el-date-picker v-model="searchForm.endDate" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="结束日期"></el-date-picker>
+          </div>
         </div>
+      </div>
+
+      <el-table :data="tableData" style="width:100%" border>
+        <el-table-column prop="date" label="日期" :width="tableAdaptive.date"></el-table-column>
+        <el-table-column prop="ip" label="IP地址" :width="tableAdaptive.ip"></el-table-column>
+        <el-table-column prop="log" label="日志内容" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="操作" :width="tableAdaptive.operate" fixed="right">
+          <template slot-scope="scope">
+            <div class="scope">
+              <p>详情</p>
+              <p>删除</p>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <div class="rc_pagination">
+        <el-pagination
+          :small="isSmallScreen"
+          background layout="prev, pager, next"
+          :total="page.total"
+          :pager-count="7"
+          @current-change="handleCurrentPage"
+        ></el-pagination>
       </div>
     </div>
 
@@ -33,13 +64,57 @@
 export default {
   data () {
     return {
+      isSmallScreen: false, // 小屏适应 - 筛选条件
+      tableAdaptive: {
+        date: 110,
+        ip: 100,
+        operate: 90
+      }, // 小屏适应 - 单元格
+      page: {
+        pageNum: 1,
+        pageSize: 8,
+        total: 300
+      },
       searchForm: {
-        date: ''
-      }
+        date: '',
+        startDate: "",
+        endDate: ""
+      },
+      tableData: [
+        {id: 0, date: '2021-12-25 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'},
+        {id: 1, date: '2021-12-26 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'},
+        {id: 2, date: '2021-12-27 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'}
+      ]
     }
   },
-  mounted () {
-    console.log(document.getElementById('main'))
+
+  beforeMount() {
+    this.adaptiveClientWidth();
+  },
+
+  methods: {
+    // 分页器当前页改变
+    handleCurrentPage (v) {
+      console.log('这是当前页:',v);
+    },
+    // 客户端宽度功能自适应
+    adaptiveClientWidth () {
+      const CWIDTH = document.body.clientWidth;
+      if(CWIDTH <= 670) {
+        this.isSmallScreen = true;
+        this.tableAdaptive = {
+          ...this.tableAdaptive
+        }
+      } else {
+        this.isSmallScreen = false;
+        this.tableAdaptive = {
+          ...this.tableAdaptive,
+          date: 180,
+          ip: 170,
+          operate: 110
+        }
+      }
+    }
   }
 }
 </script>
@@ -78,9 +153,9 @@ export default {
       }
 
       .sec {
+        margin-bottom: 15px;
         .item {
           max-width: 600px;
-          height: 32px;
           line-height: 32px;
           display: flex;
           justify-content: space-around;
@@ -88,6 +163,16 @@ export default {
           margin: 10px 0;
         }
       }
+    }
+
+    .scope {
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+    }
+    .rc_pagination {
+      text-align: right;
+      margin-top: 15px;
     }
   }
   .el-range-editor.el-input__inner {
