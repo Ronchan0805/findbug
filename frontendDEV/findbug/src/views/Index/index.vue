@@ -32,6 +32,7 @@
         </div>
       </div>
 
+      <!-- 表格数据 -->
       <el-table :data="tableData" style="width:100%" border>
         <el-table-column prop="date" label="日期" :width="tableAdaptive.date"></el-table-column>
         <el-table-column prop="ip" label="IP地址" :width="tableAdaptive.ip"></el-table-column>
@@ -39,13 +40,14 @@
         <el-table-column label="操作" :width="tableAdaptive.operate" fixed="right">
           <template slot-scope="scope">
             <div class="scope">
-              <p>详情</p>
-              <p>删除</p>
+              <p @click="handleDetail(scope.row)">详情</p>
+              <p @click="handleDelete(scope.row)">删除</p>
             </div>
           </template>
         </el-table-column>
       </el-table>
 
+      <!-- 分页器 -->
       <div class="rc_pagination">
         <el-pagination
           :small="isSmallScreen"
@@ -57,11 +59,17 @@
       </div>
     </div>
 
+    <!-- 对话框 -->
+    <Dialog :isShow="isDiaShow" @closeDia="handleCloseDia"></Dialog>
   </div>
 </template>
 
 <script>
+import Dialog from '../dialog/dialog.vue'
 export default {
+  components: {
+      Dialog
+  },
   data () {
     return {
       isSmallScreen: false, // 小屏适应 - 筛选条件
@@ -84,7 +92,8 @@ export default {
         {id: 0, date: '2021-12-25 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'},
         {id: 1, date: '2021-12-26 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'},
         {id: 2, date: '2021-12-27 23:00:00', log: '这是一段很长很长很长的错误内容', ip: '172.81.252.202'}
-      ]
+      ],
+      isDiaShow: false, // 对话框显示隐藏
     }
   },
 
@@ -93,6 +102,20 @@ export default {
   },
 
   methods: {
+    // 详情
+    handleDetail (row) {
+      this.isDiaShow = true;
+      console.log('详情按钮点击',row);
+    },
+    // 编辑
+    handleDelete (row) {
+      console.log('删除按钮点击',row);
+    },
+    // 对话框关闭回调 （子组件通信事件）
+    handleCloseDia (param) {
+      this.isDiaShow = false;
+      console.log('子组件请求关闭对话框',param);
+    },
     // 分页器当前页改变
     handleCurrentPage (v) {
       console.log('这是当前页:',v);
@@ -169,6 +192,15 @@ export default {
       display: flex;
       justify-content: space-around;
       align-content: center;
+      p {
+        cursor: pointer;
+      }
+      p:nth-child(1) {
+        color: #eea010;
+      }
+      p:nth-child(2) {
+        color: #f75454;
+      }
     }
     .rc_pagination {
       text-align: right;
