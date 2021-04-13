@@ -9,9 +9,11 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+/**
+ * 设置为线上环境
+ * req.app.get('env')可获取当前开发环境 - development|production
+ */
+// app.set('env', 'production');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,20 +24,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+/**
+ *  关于错误处理:
+ *  HTTP请求状态码统一为200,在res返回值里会返回实际状态码
+ */
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+ app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// error handler
+/**
+ * error handler
+ * 与其他app.use()不同的是，当函数接受四个参数时，该函数就被标识为错误处理中间件函数
+ */
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  // return Error
+  res.json({
+    code: err.status || 500,
+    data: req.app.get('env'),
+    msg: err.message
+  })
 });
 
 module.exports = app;
