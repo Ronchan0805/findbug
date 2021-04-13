@@ -1,10 +1,10 @@
 /**
- *  输出当前时间
+ *  Printf now Datetime
  *  @param {
- *    type: String('eg: yyyy-MM-dd') || String('timeStap')
+ *    type: String('eg: yyyy-MM-dd') || String('timeStap') ('type is printf DateType')
  *  }
  */
-let nowDate = function (type) {
+let _nowDate = function (type) {
   const TIME = new Date();
   if(type == 'timeStap') {
     return TIME.getTime();
@@ -35,6 +35,45 @@ let nowDate = function (type) {
   }
 }
 
+/**
+ *  Diff startDate and endDate
+ *  @param {
+ *    startDate: String|timeStap ('The Param must be yyyy-MM-dd HH:mm:ss Or timeStap')
+ *    endDate:   String|timeStap
+ *  }
+ *  @returns {
+ *    0 ('s = e'),
+ *    -1 ('s < e'),
+ *    1 ('s > e'),
+ *    'err' ('Error')
+ *  }
+ */
+let _diffDate = function (s,e) {
+  if(typeof(s) !== "string" || typeof(e) !== "string") {
+    return new Error(`The param ${s} or ${e} is not a string`);
+  }
+  let n,m;
+  try {
+    n = (new Date(s)).getTime();
+    m = (new Date(e)).getTime();
+    if(isNaN(n) || isNaN(m)) {
+      return new Error(`The param ${s} or ${e} is not a DateType`);
+    }
+  } catch {
+    return new Error(`The param ${s} or ${e} is not a DateType`);
+  }
+  if(n < m) {
+    return -1;
+  } else if (n == m) {
+    return 0;
+  } else if (n > m) {
+    return 1;
+  } else {
+    return new Error(`Invaildy Error`);
+  }
+}
+
 module.exports = {
-  nowDate
+  _nowDate,
+  _diffDate
 }
