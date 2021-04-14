@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
 /**
  *  关于错误处理:
  *  HTTP请求状态码统一为200,在res返回值里会返回实际状态码
