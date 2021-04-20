@@ -3,10 +3,11 @@ var $fs = require('../utils/nodeApi/r_fs.js');
 var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req);
   let data = {
     ip: '192.81.252.202',
     msg: '未知报错',
-    date: '2021-01-01 00:00:01'
+    date: des
   }
   $fs.rcAppendFile('/public/log/index.txt',data).then(res => {
     if(res == 'ok') {
