@@ -32,6 +32,39 @@ let rcReadFile = function (url,encoding = 'utf-8') {
     })
   })
 }
+
+/**
+ * fs.mkdir
+ * 绝对地址|单级创建
+ */
+let rcMkDir = function (url) {
+  return new Promise((resolve,reject) => {
+    fs.mkdir(path.join(__dirname,`../..${url}`), (err) => {
+      if(err) {
+        switch (err.errno) {
+          case -4508:
+            reject({status: err.errno, msg: '跨级创建目录', path: err.path});
+            break;
+          case -4507:
+            reject({status: err.errno, msg: '目录已存在', path: err.path});
+            break;
+          default:
+            reject({
+              ...err,
+              status: err.errno,
+              msg: '',
+              path: err.path || ''
+            });
+            break;
+        }
+      } else {
+        resolve('ok');
+      }
+    })
+  })
+}
 module.exports = {
-  rcAppendFile
+  rcAppendFile,
+  rcReadFile,
+  rcMkDir
 }
