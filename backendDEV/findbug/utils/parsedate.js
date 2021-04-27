@@ -44,23 +44,22 @@ let _nowDate = function (type) {
  *  @returns {
  *    0 ('s = e'),
  *    -1 ('s < e'),
- *    1 ('s > e'),
- *    'err' ('Error')
+ *    1 ('s > e')
  *  }
  */
 let _diffDate = function (s,e) {
   if(typeof(s) !== "string" || typeof(e) !== "string") {
-    return new Error(`The param ${s} or ${e} is not a string`);
+    throw new Error(`The param ${JSON.stringify(s)} or ${JSON.stringify(e)} is not a string`);
   }
   let n,m;
   try {
     n = (new Date(s)).getTime();
     m = (new Date(e)).getTime();
     if(isNaN(n) || isNaN(m)) {
-      return new Error(`The param ${s} or ${e} is not a DateType`);
+      throw new Error(`The param ${JSON.stringify(s)} or ${JSON.stringify(e)} is not a DateType`);
     }
   } catch {
-    return new Error(`The param ${s} or ${e} is not a DateType`);
+    throw new Error(`The param ${JSON.stringify(s)} or ${JSON.stringify(e)} is not a DateType`);
   }
   if(n < m) {
     return -1;
@@ -69,7 +68,7 @@ let _diffDate = function (s,e) {
   } else if (n > m) {
     return 1;
   } else {
-    return new Error(`Invaildy Error`);
+    throw new Error(`Invaildy Error`);
   }
 }
 
