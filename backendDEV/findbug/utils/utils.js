@@ -13,113 +13,122 @@ function _isObject (o) {
 }
 
 /**
+ * 数组唯一性排序
+ * 默认成员: {Object,Array,Number,String,Boolean}
+ * @param { Array }
+ * @returns { Array }
+ */
+function _sortArray (a) {
+  if(!_isArray(a)) {
+    throw new Error(`The param: ${JSON.stringify(a)} of _sortArray is not a Array`);
+  }
+  let nArr = a.map((item, index, arr) => {
+    if(typeof(item) !== "object") {
+      return item;
+    } else {
+
+      if(_isArray(item)) {
+        return _sortArray(item);
+      }
+
+      else if(_isObject(item)) {
+        return _sortObject(item);
+      }
+      
+      else {
+        throw new Error('Not as expected type in _sortArray');
+      }
+    }
+  });
+  nArr.sort();
+  return nArr;
+}
+
+/**
+ * 对象唯一性排序
+ * 默认成员: {Object,Array,Number,String,Boolean}
+ * @param { Object }
+ * @returns { Object }
+ */
+function _sortObject (o) {
+  if(!_isObject(o)) {
+    throw new Error(`The param: ${JSON.stringify(o)} of _sortObject is not a Object`);
+  }
+  let keys = Object.keys(o).sort();
+  let nObj = {};
+  keys.forEach((item, index, key) => {
+
+    if(typeof(o[item]) !== "object") {
+      nObj[item] = o[item];
+    }
+
+    else if (_isArray(o[item])) {
+      nObj[item] = _sortArray(o[item]);
+    }
+
+    else if (_isObject(o[item])) {
+      nObj[item] = _sortObject(o[item]);
+    }
+    
+    else {
+      throw new Error('Not as expected type in _sortObject');
+    }
+  });
+  return nObj;
+}
+
+/**
  * Object 相等判断
- * {Object,Array,Number,String}
+ * 默认成员: {Object,Array,Number,String,Boolean}
  * @returns { true | false }
  */
 function _diffObject (o1, o2) {
   if(!_isObject(o1) || !_isObject(o2)) {
     throw new Error(`The param: ${JSON.stringify(o1)} or ${JSON.stringify(o2)} of _diffObject is not a Object`);
   }
-  let a1 = Object.keys(o1);
-  let a2 = Object.keys(o2);
-  // key is different -> object is diffrernt
-  if(!_diffArray(a1, a2)) {
-    return false;
-  }
-  // res -> 返回值
-  let res = true;
-
-    for(let i = 0; i < a1.length; i++) {
-      let item = a1[i];
-      // key:valueType is different -> object is different
-      if( (typeof(o1[item]) !== typeof(o2[item])) || (_isArray(o1[item]) !== _isArray(o2[item]))  || (_isObject(o1[item]) !== _isObject(o2[item])) ) {
-        res = false;
-        break;
-      } else {
-          
-        // o1[item] , o2[item]类型相同
-        if(typeof(o1[item]) == "number" || typeof(o1[item]) == "string") {
-          if(o1[item] !== o2[item]) {
-            res = false;
-            break;
-          }
-        } else if (_isArray(o1[item])) {
-          if( !_diffArray(o1[item], o2[item]) ) {
-            res = false;
-            break;
-          }
-        } else if (_isObject(o1[item])) {
-          if( !_diffObject(o1[item], o2[item]) ) {
-            res = false;
-            break;
-          }
-        } else {
-          throw new Error('The value of object in _diffObject required {Object,Array,Number,String}')
-        }
-
-      }
-    }
-    return res;
-
+  let _o1 = _sortObject(o1);
+  let _o2 = _sortObject(o2);
+  return (JSON.stringify(_o1) === JSON.stringify(_o2));
 }
 
 /**
  * Array 相等判断
- * {Object,Array,Number,String}
+ * 默认成员: {Object,Array,Number,String,Boolean}
  * @returns { true | false }
- * // sort() + JSON.stringfy()不适用深度判断
- * // 适用范围: 简单数组， 数组->对象, 数组->数组
  */
 function _diffArray (a1, a2) {
   if(!_isArray(a1) || !_isArray(a2)) {
-    throw new Error(`The param: ${JSON.stringify(a1)} or ${JSON.stringify(a2)} of _diffObject is not a Array`);
+    throw new Error(`The param: ${JSON.stringify(a1)} or ${JSON.stringify(a2)} of _diffArray is not a Array`);
   }
-  // 对a1, a2内部Object类型排序
-  a1.forEach((item, index, arr) => {
-    if(_isArray(item)) {
-      item.sort();
-    } else if (_isObject(item)) {
-      let newObj = {};
-      Object.keys(item).sort().forEach(key => {
-        newObj[key] = item[key];
-        arr[index] = newObj;
-      });
-    } else {
-      return;
-    }
-  });
-  a2.forEach((item, index, arr) => {
-    if(_isArray(item)) {
-      item.sort();
-    } else if (_isObject(item)) {
-      let newObj = {};
-      Object.keys(item).sort().forEach(key => {
-        newObj[key] = item[key];
-        arr[index] = newObj;
-      });
-    } else {
-      return;
-    }
-  });
-  // 对a1, a2排序
-  a1.sort();
-  a2.sort();
-  if(JSON.stringify(a1) === JSON.stringify(a2)) {
-    return true;
-  } else {
-    return false;
-  }
+  let _a1 = _sortArray(a1);
+  let _a2 = _sortArray(a2);
+  return (JSON.stringify(_a1) === JSON.stringify(_a2));
 }
 
 /**
  * Array 去重
- * [Object,Array,Number,String]
+ * 默认成员: {Object,Array,Number,String,Boolean}
  */
 function _uniqueArray (a) {
   if(!_isArray(a)) {
     return new Error(`The param: ${a} of _uniqueArray is not a Array`);
   }
+  let res = [...new Set(a)]; // 去除重复基本类型值
+  let _m = [];
+  res.forEach((item, index, arr) => {
+    if(typeof(item) !== "object") {
+      _m.push(item);
+    }
+    else if (_isArray(item)) {
+      _m.forEach(item => {
+        
+      })
+    }
+    else if (_isObject(item)) {
+
+    }
+    else {
+      throw new Error('Not as expected type in _uniqueArray');
+    }
+  });
 }
-// let arr = [1,'2',{},'2',[{name:'ron'},{name:'ron'}],false,{name:'ron'},{name:'ron'},{},{age:16,name:'ron'},[{name:'ron'},{name:'ron'}]];
-// console.log(_uniqueArray(arr));
