@@ -13,6 +13,17 @@ function _isObject (o) {
 }
 
 /**
+ * 类型检测 - 未知类型
+ * @returns { Number, String, Array, Object, Boolean, Null, Undefined }
+ */
+function _typeOf (o) {
+  let str = Object.prototype.toString.call(o);
+  let type = str.split(' ')[1];
+  return type.slice(0, type.length-1);
+}
+
+
+/**
  * 数组唯一性排序
  * 默认成员: {Object,Array,Number,String,Boolean}
  * @param { Array }
@@ -106,6 +117,29 @@ function _diffArray (a1, a2) {
 }
 
 /**
+ * 数组元素查找 - （使用'==='操作符,但可查找引用类型）
+ * 默认成员: {Object,Array,Number,String,Boolean}
+ * @param { arr: 操作数组对象,  item: 待查找元素, index: 查找的起始索引 }
+ * @returns { Number: 元素在第一次在数组中的位置(未找到返回-1) }
+ * 
+ */
+function _indexOf (arr, item, index=0) {
+  if(!_isArray(arr)) {
+    throw new Error('The first param required a Array in _indexOf');
+  }
+  if(index != 0) {
+    arr.splice(0, Number(index));
+  }
+  let res = -1;
+  for(let i = 0; i < arr.length; i++) {
+    if(_typeOf(arr[i]) === _typeOf(item)) {
+
+    }
+  }
+}
+
+
+/**
  * Array 去重
  * 默认成员: {Object,Array,Number,String,Boolean}
  */
@@ -131,4 +165,5 @@ function _uniqueArray (a) {
       throw new Error('Not as expected type in _uniqueArray');
     }
   });
+  return _m;
 }
