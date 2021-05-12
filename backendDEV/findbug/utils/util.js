@@ -177,7 +177,7 @@ function _indexOf (arr, item, index=0) {
  */
 function _uniqueArray (a) {
   if(!_isArray(a)) {
-    return new Error(`The param: ${a} of _uniqueArray is not a Array`);
+    throw new Error(`The param: ${a} of _uniqueArray is not a Array`);
   }
   let res = [...new Set(a)]; // 去除重复基本类型值-包含null
   let _m = [];
@@ -195,4 +195,17 @@ function _uniqueArray (a) {
     }
   });
   return _m;
+}
+
+module.exports = {
+  _isArray,
+  _isObject,
+  _isBelongObject,
+  _typeOf,
+  _sortArray,
+  _sortObject,
+  _diffObject,
+  _diffArray,
+  _indexOf,
+  _uniqueArray
 }
