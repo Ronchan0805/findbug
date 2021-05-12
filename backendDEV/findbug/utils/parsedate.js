@@ -1,11 +1,13 @@
 /**
  *  Printf now Datetime
  *  @param {
+ *    time: timeStap
  *    type: String('eg: yyyy-MM-dd') || String('timeStap') ('type is printf DateType')
+ *          'yyyy, MM, M, D, DD, HH, h, mm, m, ss, s'
  *  }
  */
-let _nowDate = function (type) {
-  const TIME = new Date();
+let _parseTime = function (time, type) {
+  const TIME = new Date(Number(time));
   if(type == 'timeStap') {
     return TIME.getTime();
   } else {
@@ -31,7 +33,7 @@ let _nowDate = function (type) {
       };
       return tokenMap[matchStr];
     });
-    return result.replace(/M/g,M).replace(/d/g,d).replace(/H/g,H).replace(/m/g,m).replace(/s/g,s);
+    return result.replace(/M/g,M).replace(/d/g,d).replace(/h/g,H).replace(/m/g,m).replace(/s/g,s);
   }
 }
 
@@ -73,6 +75,6 @@ let _diffDate = function (s,e) {
 }
 
 module.exports = {
-  _nowDate,
+  _parseTime,
   _diffDate
 }
