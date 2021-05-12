@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var dangerRouter = require('./routes/secret/create_secret.js');
 
 var app = express();
 
@@ -21,8 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 需要复杂验证的接口
+app.use('/danger',dangerRouter);
+
 /**
  *  关于错误处理:
  *  HTTP请求状态码统一为200,在res返回值里会返回实际状态码

@@ -7,7 +7,11 @@
  *  }
  */
 let _parseTime = function (time, type) {
-  const TIME = new Date(Number(time));
+  try {
+    const TIME = new Date(Number(time));
+  } catch {
+    throw new Error(`The param ${JSON.stringify(time)} is not a timeStamp`);
+  }
   if(type == 'timeStap') {
     return TIME.getTime();
   } else {
