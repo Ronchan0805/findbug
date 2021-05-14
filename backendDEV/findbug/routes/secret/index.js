@@ -1,20 +1,19 @@
 var express = require('express');
 var $fs = require('../../utils/nodeApi/r_fs.js');
 var util = require('../../utils/util.js');
+var query = require('../../utils/mysql/index.js');
 var { Base64 } = require('../../utils/CDN/base64.js');
+var { createSecretCode } = require('../../utils/secret/secret.js');
 var router = express.Router();
 
 // 创建web唯一秘钥通行证
 router.get('/pwdcode', function(req, res, next) {
-  let ip = req.headers.ms;
-  // base64 加密解密ip
-
-  res.json({
-    code: 200,
-    data: Base64.encode('zhanrun'),
-    msg: 'ok'
-  });
-  return;
+  // Base64解码ip
+  // let ip = Base64.decode(req.headers.ms);
+  let sql = `SELECT * FROM secret_key_code`;
+  query(sql).then(back => {
+    let str = createSecretCode(back.length);
+  })
 });
 
 module.exports = router;

@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var dangerRouter = require('./routes/secret/create_secret.js');
+var dangerRouter = require('./routes/secret/index.js');
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 需要复杂验证的接口
+// 需要安全性验证的接口
 app.use('/danger',dangerRouter);
 
 /**
