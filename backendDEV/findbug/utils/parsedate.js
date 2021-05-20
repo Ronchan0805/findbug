@@ -1,14 +1,15 @@
 /**
- *  Printf now Datetime
+ *  Printf Datetime
  *  @param {
  *    time: timeStap
  *    type: String('eg: yyyy-MM-dd') || String('timeStap') ('type is printf DateType')
  *          'yyyy, MM, M, D, DD, HH, h, mm, m, ss, s'
  *  }
  */
-let _parseTime = function (time, type) {
+function _parseTime (time, type) {
+  let TIME;
   try {
-    const TIME = new Date(Number(time));
+    TIME = new Date(Number(time));
   } catch {
     throw new Error(`The param ${JSON.stringify(time)} is not a timeStamp`);
   }
@@ -53,7 +54,7 @@ let _parseTime = function (time, type) {
  *    1 ('s > e')
  *  }
  */
-let _diffDate = function (s,e) {
+function _diffDate (s,e) {
   if(typeof(s) !== "string" || typeof(e) !== "string") {
     throw new Error(`The param ${JSON.stringify(s)} or ${JSON.stringify(e)} is not a string`);
   }

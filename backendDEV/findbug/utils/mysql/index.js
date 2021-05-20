@@ -19,6 +19,7 @@ let query = function( sql, values ) {
   return new Promise(( resolve, reject ) => {
     pool.getConnection(function(err, connection) {
       if (err) {
+        console.log('数据库连接失败');
         reject( err )
       } else {
         connection.query(sql, values, ( err, rows) => {

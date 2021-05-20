@@ -1,31 +1,9 @@
 LogInfo:
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错","date":"2021-01-01 00:00:01"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
- {"ip":"192.81.252.202","msg":"未知报错"}
+ "秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit, create_date, note) VALUES (C4BA955ECC48935A1194CE8D3BD0D175, 192.168.94.3' at line 1"
+ "秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit, create_date, note) VALUES (4926067B1FB99E34BCA38E5D51465A71, 192.168.94.3' at line 1"
+ "秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''limit', create_date, note) VALUES (69D35003D47C4D6E17F9B9897FAB38B2, 192.168.94' at line 1"
+ "YYYY-05-20 13:36:08: 秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.94.37, 4070880000000, 1621488968438, )' at line 1"
+ "2021-05-20 13:38:19: 秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'F3A1FE66F9506AC6B5558B20FC, 192.168.94.37, 4070880000000, 1621489099089, )' at line 1"
+ "2021-05-20 13:41:31: 秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.94.37, 4070880000000, 1621489291856, null)' at line 1"
+ "2021-05-20 13:43:57: 秘钥创建错误-createSecretCode-Error: ER_DATA_TOO_LONG: Data too long for column 'keycode' at row 1"
+ "2021-05-20 13:45:29: 秘钥创建错误-createSecretCode-TypeError: res.json is not a function"
