@@ -1,14 +1,15 @@
 var query = require('../../utils/mysql/index.js');
 var $fs = require('../nodeApi/r_fs.js');
+var $date = require('../parsedate.js');
 var md5 = require('../CDN/md5.js');
 /**
  * 
- * @param {
+ * param {
  *    validity: Number(分钟min) || String('Max'),
  *    ip: String,
  *    note: String
  * }
- * @returns {String} 
+ * returns {String} 
  */
 function createSecretCode (validity, ip, note='') {
   // ip拦截验证 - (略)
@@ -34,7 +35,13 @@ function createSecretCode (validity, ip, note='') {
   })
 }
 
-// 获取秘钥到期时间
+/**
+ * 获取秘钥到期时间
+ * param {
+ *  limitTime: String('Max') || Number(分钟min)
+ * }
+ * returns {String(timeStamp)}
+ */
 function _getSecretKeyCodeLimit (limitTime) {
   if(limitTime === 'Max') {
     return new Date('2099-01-01 00:00:00').getTime();
@@ -44,10 +51,41 @@ function _getSecretKeyCodeLimit (limitTime) {
   }
 }
 
-
+/**
+ * 获取秘钥是否存在及是否过期 - 能否使用
+ * param {String} keycode 
+ * returns {
+ *    0: 无法使用
+ *    1: 可以使用
+ * }
+ */
+function _getSecretKeyCodeCanUse (keycode) {
+  return new Promise((resolve, reject) => {
+    let values = [keycode];
+    query(`SELECT limit_date,create_date FROM secret_key_code WHERE keycode = ?`,values).then(res => {
+      if(res.length == 0) {
+        resolve(0);
+      } else {
+        let a = $date._diffDate(res[0].create_date,res[0].limit_date);
+        if(a == -1) {
+          resolve(1);
+        } else {
+          resolve(0);
+        }
+      }
+    }).catch(err => {
+      $fs.rcAppendFile('/public/log/index.txt',`
+        ${$date._parseTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}: 秘钥校验危险-_getSecretKeyCodeCanUse-${err}
+        `).then(res => {
+          reject('err');
+        });
+    })
+  })
+}
 
 
 
 module.exports = {
-  createSecretCode
+  createSecretCode,
+  _getSecretKeyCodeCanUse
 }

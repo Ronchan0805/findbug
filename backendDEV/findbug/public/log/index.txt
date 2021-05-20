@@ -7,3 +7,7 @@ LogInfo:
  "2021-05-20 13:41:31: 秘钥创建错误-createSecretCode-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.94.37, 4070880000000, 1621489291856, null)' at line 1"
  "2021-05-20 13:43:57: 秘钥创建错误-createSecretCode-Error: ER_DATA_TOO_LONG: Data too long for column 'keycode' at row 1"
  "2021-05-20 13:45:29: 秘钥创建错误-createSecretCode-TypeError: res.json is not a function"
+ "\n        2021-05-20 17:35:56: 秘钥校验危险-_getSecretKeyCodeCanUse-Error: The param \"1621489529518\" or \"4070880000000\" is not a DateType\n        "
+ "\n        2021-05-20 17:38:33: 秘钥校验危险-_getSecretKeyCodeCanUse-Error: The param \"1621489529518\" or \"4070880000000\" is not a DateType\n        "
+ "\n        2021-05-20 17:39:13: 秘钥校验危险-_getSecretKeyCodeCanUse-Error: The param \"1621489529518\" or \"4070880000000\" is not a DateType\n        "
+ "\n        2021-05-20 17:39:13: 秘钥校验危险-_getSecretKeyCodeCanUse-Error: The param \"1621489529518\" or \"4070880000000\" is not a DateType\n        "

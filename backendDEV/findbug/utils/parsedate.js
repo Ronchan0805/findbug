@@ -60,8 +60,8 @@ function _diffDate (s,e) {
   }
   let n,m;
   try {
-    n = (new Date(s)).getTime();
-    m = (new Date(e)).getTime();
+    n = (new Date(Number(s))).getTime();
+    m = (new Date(Number(e))).getTime();
     if(isNaN(n) || isNaN(m)) {
       throw new Error(`The param ${JSON.stringify(s)} or ${JSON.stringify(e)} is not a DateType`);
     }

@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var dangerRouter = require('./routes/secret/index.js');
+var secureRouter = require('./routes/buginfo/index.js');
 
 var app = express();
 
@@ -20,8 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 需要安全性验证的接口
+// 秘钥接口
 app.use('/danger',dangerRouter);
+
+// bug日志内容 - 身份验证
+app.use('/secure',secureRouter);
 
 /**
  *  关于错误处理:

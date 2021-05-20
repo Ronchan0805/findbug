@@ -19,7 +19,7 @@ var router = express.Router();
  *       msg: 'ok'
  *     }
  */
-router.get('/pwdcode', function(request, response, next) {
+router.get('/pwdcode', function(requset, response, next) {
   createSecretCode('Max','192.168.94.37').then(res => {
     response.json({
       code: 200,
