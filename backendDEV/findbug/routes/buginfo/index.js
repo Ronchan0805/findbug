@@ -6,8 +6,17 @@ var { _getSecretKeyCodeCanUse } = require('../../utils/secret/secret.js');
 var router = express.Router();
 
 router.use('/', (request, response, next) => {
-  console.log('keycode校验');
-  _getSecretKeyCodeCanUse('89B670725CF2851BE5F1960FE95D9C28ronchan').then(res => {
+  let { keycode } = request.query;
+  let reg = /[^A-Za-z0-9 ]/;
+  if(reg.test(keycode)) {
+    response.json({
+      code: 100002,
+      data: '秘钥不合法，请检查后重新输入',
+      msg: 'fail'
+    });
+    return;
+  }
+  _getSecretKeyCodeCanUse('89B670725CF2851BE5F1960FE95D9C28').then(res => {
     if(res == 1) {
       next();
       return;
@@ -30,6 +39,7 @@ router.use('/', (request, response, next) => {
 });
 
 router.get('/getInfoList',(request, response) => {
+  console.log('列表获取路由执行');
   response.json({
     code: 200,
     data: '获取列表成功',

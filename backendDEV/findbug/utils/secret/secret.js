@@ -74,10 +74,11 @@ function _getSecretKeyCodeCanUse (keycode) {
         }
       }
     }).catch(err => {
+      // catch能捕获sql语句错误和上方then回调中的异常
       $fs.rcAppendFile('/public/log/index.txt',`
-        ${$date._parseTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}: 秘钥校验危险-_getSecretKeyCodeCanUse-${err}
+        ${$date._parseTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}: 秘钥校验错误-_getSecretKeyCodeCanUse-${err}
         `).then(res => {
-          reject('err');
+          reject(err);
         });
     })
   })
