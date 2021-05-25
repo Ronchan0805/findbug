@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var dangerRouter = require('./routes/secret/index.js');
 var secureRouter = require('./routes/buginfo/index.js');
-
+var pclistRouter = require('./routes/pclist/index.js');
 var app = express();
 
 /**
@@ -24,9 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 秘钥接口
 app.use('/danger',dangerRouter);
 
-// bug日志内容 - 身份验证
+// 需要秘钥校验的接口
 app.use('/secure',secureRouter);
 
+// pc端
+app.use('/api',pclistRouter);
 /**
  *  关于错误处理:
  *  HTTP请求状态码统一为200,在res返回值里会返回实际状态码
