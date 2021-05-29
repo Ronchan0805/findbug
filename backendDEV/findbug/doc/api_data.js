@@ -1,0 +1,78 @@
+define({ "api": [
+  {
+    "type": "get",
+    "url": "/danger/pwdcode",
+    "title": "创建web唯一秘钥通行证",
+    "name": "秘钥相关",
+    "group": "danger",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n  code: 200,\n  data: \"\",\n  msg: 'ok'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "{\n  code: 100001,\n  data: '秘钥创建失败',\n  msg: 'fail'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/secret/index.js",
+    "groupTitle": "danger"
+  },
+  {
+    "type": "get",
+    "url": "/danger/pwdcode",
+    "title": "插入日志数据",
+    "name": "插入日志数据",
+    "group": "secure",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keycode",
+            "description": "<p>秘钥</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>日志内容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "\"success\"",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "{\n  code: 100002-100005,\n  data: '...秘钥相关错误',\n  msg: 'fail'\n}\n\n\"fail\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/buginfo/index.js",
+    "groupTitle": "secure"
+  }
+] });

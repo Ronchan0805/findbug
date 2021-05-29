@@ -6,18 +6,21 @@ var { createSecretCode } = require('../../utils/secret/secret.js');
 var router = express.Router();
 
 /**
- * @api {get} /danger/pwdcode Request User information
+ * @api {get} /danger/pwdcode 创建web唯一秘钥通行证
  * @apiName 创建web唯一秘钥通行证
  * @apiGroup danger
- *
- *
  * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       code: 200,
- *       data: "",
- *       msg: 'ok'
- *     }
+ * {
+ *   code: 200,
+ *   data: "",
+ *   msg: 'ok'
+ * }
+ * @apiErrorExample {json} Error-Response:
+ * {
+ *   code: 100001,
+ *   data: '秘钥创建失败',
+ *   msg: 'fail'
+ * }
  */
 router.get('/pwdcode', function(requset, response, next) {
   createSecretCode('Max','192.168.94.37').then(res => {
@@ -29,7 +32,7 @@ router.get('/pwdcode', function(requset, response, next) {
     return;
   }).catch(err => {
     response.json({
-      code: 1000001,
+      code: 100001,
       data: '秘钥创建失败',
       msg: 'fail'
     });

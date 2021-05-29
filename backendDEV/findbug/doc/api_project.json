@@ -1,0 +1,16 @@
+{
+  "name": "findbug",
+  "version": "0.0.0",
+  "description": "统一接口文档",
+  "title": "findbug API doc",
+  "url": "localhost:3000",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2021-05-25T06:13:42.692Z",
+    "url": "https://apidocjs.com",
+    "version": "0.28.1"
+  }
+}
