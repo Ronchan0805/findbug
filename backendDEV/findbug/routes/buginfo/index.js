@@ -10,7 +10,7 @@ router.use('/', (request, response, next) => {
   let reg = /[^A-Za-z0-9 ]/;
   if(reg.test(keycode)) {
     response.json({
-      code: 100002,
+      code: 100004,
       data: '秘钥不合法，请检查后重新输入',
       msg: 'fail'
     });
@@ -22,7 +22,7 @@ router.use('/', (request, response, next) => {
       return;
     } else {
       response.json({
-        code: 100002,
+        code: 100003,
         data: '秘钥无效,请重新申请',
         msg: 'fail'
       });
@@ -40,6 +40,8 @@ router.use('/', (request, response, next) => {
 
 router.get('/getInfoList',(request, response) => {
   console.log('列表获取路由执行');
+  let { pageNum, pageSize, startDate, endDate } = request.query;
+  
   response.json({
     code: 200,
     data: '获取列表成功',
