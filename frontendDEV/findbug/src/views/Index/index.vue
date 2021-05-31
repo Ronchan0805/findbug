@@ -5,12 +5,12 @@
       <span class="title">开发调试平台</span>
     </div>
 
+    
     <div id="main" class="main">
       <div class="tit">
         <p>实时日志</p>
         <el-button type="primary">点击查询</el-button>
       </div>
-
       <div class="sec">
         <div class="item">
           <p style="min-width:80px;">时间段:</p>
@@ -31,7 +31,6 @@
           </div>
         </div>
       </div>
-
       <!-- 表格数据 -->
       <el-table :data="tableData" style="width:100%" border>
         <el-table-column prop="date" label="日期" :width="tableAdaptive.date"></el-table-column>
