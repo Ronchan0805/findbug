@@ -3,22 +3,16 @@ const getInfoList = {
   pageNum: {
     require: false,
     default: 1,
-    type: 'Number',
-    isInt: true
+    type: 'String'
   },
   pageSize: {
     require: false,
     default: 10,
-    type: 'Number',
-    isInt: true
+    type: 'String'
   },
   startDate: {
     require: false,
-    type: 'String',
-    dateType: true
-  },
-  endDate: {
-    require: false,
+    default: "",
     type: 'String',
     dateType: true
   }

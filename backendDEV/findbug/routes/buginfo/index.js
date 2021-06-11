@@ -20,11 +20,7 @@ router.use('/', (request, response, next) => {
   let reg = /[^A-Za-z0-9 ]/;
   if(reg.test(keycode)) {
     response.json({
-<<<<<<< HEAD
       code: 100004,
-=======
-      code: 100003,
->>>>>>> 5df10eb7b11698ef35616b87287dc4fb76233932
       data: '秘钥不合法，请检查后重新输入',
       msg: 'fail'
     });
@@ -36,11 +32,7 @@ router.use('/', (request, response, next) => {
       return;
     } else {
       response.json({
-<<<<<<< HEAD
         code: 100003,
-=======
-        code: 100004,
->>>>>>> 5df10eb7b11698ef35616b87287dc4fb76233932
         data: '秘钥无效,请重新申请',
         msg: 'fail'
       });
@@ -56,7 +48,6 @@ router.use('/', (request, response, next) => {
   })
 });
 
-<<<<<<< HEAD
 router.get('/getInfoList',(request, response) => {
   console.log('列表获取路由执行');
   let { pageNum, pageSize, startDate, endDate } = request.query;
@@ -65,38 +56,6 @@ router.get('/getInfoList',(request, response) => {
     code: 200,
     data: '获取列表成功',
     msg: 'ok'
-=======
-/**
- * @api {get} /danger/pwdcode 插入日志数据
- * @apiName 插入日志数据
- * @apiGroup secure
- * @apiParam {String} keycode 秘钥
- * @apiParam {String} data 日志内容
- * @apiSuccessExample {json} Success-Response:
- * "success"
- * @apiErrorExample {json} Error-Response:
- * {
- *   code: 100002-100005,
- *   data: '...秘钥相关错误',
- *   msg: 'fail'
- * }
- * 
- * "fail"
- */
-router.get('/createInfo',(request, response) => {
-  let { keycode, data } = request.query;
-  let sql_insertInfo = `INSERT INTO bug_info (keycode, create_date, content_detail) VALUES (
-    ?, ?, ?
-  )`;
-  query(sql_insertInfo,[keycode, new Date().getTime(), data]).then(res => {
-    response.end('success');
-    return;
-  }).catch(err => {
-    response.end('fail');
-    $fs.rcAppendFile('/public/log/index.txt',`${$date._parseTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}:createInfo
-    错误：${err}`);
-    return;
->>>>>>> 5df10eb7b11698ef35616b87287dc4fb76233932
   });
 });
 
