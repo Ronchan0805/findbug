@@ -1,11 +1,6 @@
 const mysql = require('mysql')
-const pool = mysql.createPool({
-  host     :  '172.81.252.202',
-  port     :  '3306',
-  user     :  'root',
-  password :  'zr1998zr',
-  database :  'findbug'
-})
+const { sqlset } = require('../../personal/sql_set.js');
+const pool = mysql.createPool(sqlset);
 
 /**
  * 接收一个sql语句及对应的values数组
