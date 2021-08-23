@@ -29,7 +29,6 @@ function _typeOf (o) {
   return type.slice(0, type.length-1);
 }
 
-
 /**
  * 数组唯一性排序
  * 默认成员: {Object,Array,Number,String,Boolean,null}
